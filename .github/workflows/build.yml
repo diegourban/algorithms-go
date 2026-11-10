@@ -1,0 +1,37 @@
+name: build
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-go@v7
+        with:
+          go-version-file: go.mod
+
+      - name: Lint and format check
+        uses: golangci/golangci-lint-action@v9
+        with:
+          version: v2.15.0
+
+      - name: Test with coverage gate
+        run: make cover
+
+      - name: Upload coverage to Codecov
+        # Dependabot PRs get no repository secrets, so CODECOV_TOKEN is empty there.
+        if: github.actor != 'dependabot[bot]'
+        uses: codecov/codecov-action@v7
+        with:
+          files: coverage.out
+          disable_search: true
+          token: ${{ secrets.CODECOV_TOKEN }}
+          fail_ci_if_error: true

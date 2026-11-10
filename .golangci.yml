@@ -1,0 +1,33 @@
+version: "2"
+
+linters:
+  default: none
+  enable:
+    - govet
+    - staticcheck
+    - errcheck
+    - ineffassign
+    - unused
+    - revive
+  settings:
+    revive:
+      rules:
+        # Every exported identifier and every package needs a doc comment (the Go counterpart of doclint).
+        - name: exported
+          arguments:
+            - checkPrivateReceivers
+        - name: package-comments
+        - name: var-naming
+        - name: indent-error-flow
+        - name: error-strings
+        - name: receiver-naming
+        - name: unexported-return
+        - name: blank-imports
+  exclusions:
+    # Keep revive's default exclusions off so missing doc comments are always reported.
+    presets: []
+
+formatters:
+  enable:
+    - gofmt
+    - goimports

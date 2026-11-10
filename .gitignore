@@ -1,0 +1,12 @@
+# Test and coverage output
+*.test
+*.out
+coverage.*
+
+# Go fuzzing cache is kept under testdata/fuzz/ on purpose (failing inputs become regression tests)
+
+# Editors and OS
+.idea/
+.vscode/
+*.iml
+.DS_Store
