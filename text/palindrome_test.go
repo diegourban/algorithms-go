@@ -11,9 +11,9 @@ func TestIsPalindrome(t *testing.T) {
 		{name: "single character", s: "a", want: true},
 		{name: "even length", s: "abba", want: true},
 		{name: "odd length", s: "racecar", want: true},
-		{name: "not a palindrome", s: "abc", want: false},
-		// TODO: decide and add the edge cases: the empty string (algorithms-java returns false),
-		// case ("Abba"), and multi-byte runes ("áéá").
+		{name: "long", s: "socorrammesubinoonibusemmarrocos", want: true},
+		{name: "not a palindrome", s: "ab", want: false},
+		{name: "empty is not a palindrome", s: "", want: false},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
